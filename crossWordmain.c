@@ -3,6 +3,16 @@
 #define ROW 20
 #define COL 20
 
+/* TODO (#1#): Create the following tasks:
+               1. right-low diagonal
+               2. left-upper diagonal
+               3. right-upper diagonall
+               4. what to do if word is  NOT 
+                              ALGEBRA but ARBEGLA??? 
+							  
+*/
+
+
 typedef char str20[21];
 
 int
@@ -128,32 +138,75 @@ checkLeftDiagonal(char TABLE[][COL], str20 word[], int index, int *foundRow, int
 	return found;
 }
 
+
+int
+checkRightDiagonal(char TABLE[][COL], str20 word[], int index, int *foundRow, int*foundCol)
+{
+	int col,i,j,row = 0;
+	int counter= sizeof(word+index);
+	int found = 0; // by defult
+	
+	do{
+		i=0;// restart the count to 0 of word
+		col =0;
+		counter = sizeof(word+index);
+
+		while(counter>0 && col >= 0)
+		{
+			if(TABLE[row][col] == word[index][i])
+			{
+				counter--;
+				i++;
+				col--;
+				row++;	
+			}
+			else
+			{
+				col--;
+				row++;
+			}
+		}
+	}while(row<ROW && counter > 0);
+			
+
+	if(counter ==0)
+	{
+		found = 1;
+		*foundRow = row;//-sizeof(word+index);
+		*foundCol = 1+col-sizeof(word+index);
+		
+	}
+	
+	return found;
+}
+
+
 int
 main()
 {
 	int i, foundRow, foundCol; 
 	char TABLE[20][20] =
 	{
-		"DIFFERENTIALGEOMETRY",
-		"LPHBGRYQGEOMETRYRXCO",
-		"PNRGSEJNFFQBSASRHJDM",
-		"CGEOKGRXSYGHTNEMASPA",
-		"OXRTBUVOUDIRAATSACST",
-		"MFBAOAQZNRMSTLTBPATH",
-		"BWUTPPBMLSIIIYHUPLUE",
-		"IVBIRHOIEBENSTEILCVM",
-		"NIQFWITLLBLRTIOAIUBA",
-		"ACHDGQGHOITSICRRELMT",
-		"TUFNAJEOEGTSCGYIDURI",
-		"OFYZVKVUNOYYSECTMSAC",
-		"RRGAMETHEORYPOIHAALA",
-		"IANALYSISKMYAMQMTLGL",
-		"CFZLUIJJKDQEQEYEHPEL",
-		"SPNTAOWMLWXFTTHTZPBO",
-		"UCATEGORYTHEORYIRSRG",
-		"JFCJHVCEGGENUYYCMLAI",
-		"ONPTVNUMBERTHEORYGOC",
-		"DIFFERENTIALEQUATION"
+		"YFRRNLLNVNHLQCDTVDJB",
+		"LTQFWKTSCOIXZMZPPKCJ",
+		"EWOZARWNRIEKUYOKCSMQ",
+		"JMLQTPBJCTHEORYRCZLH",
+		"GLSRNAPJUAPDAZMPXAQB",
+		"HRZRQIPLIUFQHERYBQTV",
+		"GEOMETRYIQAUUOPSYWQE",
+		"HRKHOBDXGELLBBEGIZGP",
+		"ROBMPCMBDMDAQMDPVELY",
+		"MGQAXLOUEVBKUWDMGYVL",
+		"ARBEGLAKNIAMNTTYSTRL",
+		"SMVMMNKELWZJADJUVCZG",
+		"BAJSJRAIXBYDXVLHYOYC",
+		"BTCSKJTUZHWGSUDETSCQ",
+		"DHAGNYTHRYKNCWTEHCRT",
+		"LBESNPVZGVELCFMYBHEA",
+		"EZDVEPCZNJAEQAOUTQKY",
+		"NRJIHRPFACMWGMSPPWCH",
+		"BKYTSHYAVIKSKVKACNXI",
+		"QIIKISFIORELRBTFDMKG"
 	};
 	
 	str20 wordSearch[20] = 
@@ -161,7 +214,7 @@ main()
 		"CALCULUS", "TRIGONOMETRY",	"PROBABILITY","GRAPHTHEORY",
 		"GEOMETRY","TOPOLOGY","APPLIEDMATH","ANALYTICGEOMETRY",
 		"COMBINATRONICS","STATISTICS","ARITHMETIC","CATEGORYTHEORY",
-		"SETTHEORY","DIFFERENTIALGEOMETRY","ANALYSIS","ALLGEBRA",
+		"SETTHEORY","DIFFERENTIALGEOMETRY","ANALYSIS","ALGEBRA",
 		"GAMETHEORY","NUMBERTHEORY","DIFFERENTIALEQUATION","MATHEMATICALLOGIC",
 	};
 	
@@ -175,6 +228,8 @@ main()
 			printf("\n%s can be found vertically on row-%d column-%d",wordSearch+i, foundRow, foundCol);
 		else if(checkLeftDiagonal(TABLE, wordSearch, i, &foundRow, &foundCol))
 			printf("\n%s can be found left diagonally on row-%d column-%d",wordSearch+i, foundRow, foundCol);
+		else if(checkRightDiagonal(TABLE, wordSearch, i, &foundRow, &foundCol))
+			printf("\n%s can be found left diagonally on row-%d column-%d",wordSearch+i, foundRow, foundCol);	
 		else 
 			printf("\n%s can't be found.",wordSearch+i);
 			
