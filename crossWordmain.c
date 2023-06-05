@@ -96,12 +96,11 @@ checkVertically(char TABLE[][COL], str20 word[], int index, int *foundRow, int*f
 int
 checkLeftLowerDiagonal(char TABLE[][COL], str20 word[], int index, int *foundRow, int*foundCol)
 {
-	int row,col=0;
+	int row=0,col=0;
 	int rowD,colD; // for diagonal searches
-	int counter=  sizeof(word+index);
+	int counter=  counter= strlen(*(word+index));
 	int found = 0; // by default
 	int i=0;
-	row =0;
 	
 	do{
 		colD = col; rowD= row; 
@@ -116,7 +115,7 @@ checkLeftLowerDiagonal(char TABLE[][COL], str20 word[], int index, int *foundRow
 			}
 			else // quits the diagonal ++ move to the next row
 			{
-				counter =  sizeof(word+index);
+				counter= strlen(*(word+index));
 				i=0;
 				row++;
 				rowD= row; 
@@ -142,36 +141,51 @@ checkLeftLowerDiagonal(char TABLE[][COL], str20 word[], int index, int *foundRow
 int
 checkRightLowerDiagonal(char TABLE[][COL], str20 word[], int index, int *foundRow, int*foundCol)
 {
-	int col,i,j,row = 0;
-	int counter= sizeof(word+index);
-	int found = 0; // by defult
 	
-	do{
-		i=0;// restart the count to 0 of word
-		col =0;
-		counter = sizeof(word+index);
+	int row=0,col=0;
+	int rowD,colD; // for diagonal searches
+	int counter= strlen(*(word+index));
+	int found = 0; // by default
+	int i=0;
 
-		while(counter>0 && col >= 0)
-		{
-			if(TABLE[row][col] == word[index][i])
+	do{
+		
+		colD = col; rowD= row; 
+		
+		while(col <COL && (colD< COL&& rowD<ROW) && counter >0) 
+		{/*
+			printf("\n%c%c",TABLE[rowD][colD], word[index][i]);
+			printf("\ncounter= %d", counter);
+			printf("row = %d, rowD = %d, col = %d, colD = %d", row,rowD,
+																col,colD);*/
+			if(TABLE[rowD][colD] == word[index][i])
 			{
 				counter--;
 				i++;
-				col--;
-				row++;	
-			}
+				colD--;
+				rowD++;	
+			}	
 			else
+			{
+				counter= strlen(*(word+index));
+				i=0;
 				col++;
+				colD= col; 
+				rowD=row;
+			}
 		}
+		
 		row++;
+		col =0;
+
 	}while(row<ROW && counter > 0);
 			
 
 	if(counter ==0)
 	{
 		found = 1;
-		*foundRow = row;//-sizeof(word+index);
-		*foundCol = 1+col-sizeof(word+index);
+		*foundRow = row;
+		*foundCol = col+strlen(*(word+index))+1;
 		
 	}
 	
@@ -218,7 +232,7 @@ main()
 	
 
 	for(i=0; i<20; i++)
-	{	
+	{
 		if(checkHorizontally(TABLE, wordSearch, i, &foundRow, &foundCol))
 			printf("\n%s can be found HORIZONTALLY on row-%d column-%d",wordSearch+i, foundRow, foundCol);
 		else if(checkVertically(TABLE, wordSearch, i, &foundRow, &foundCol))
@@ -226,8 +240,7 @@ main()
 		else if(checkLeftLowerDiagonal(TABLE, wordSearch, i, &foundRow, &foundCol))
 			printf("\n%s can be found LEFT LOW diagonally on row-%d column-%d",wordSearch+i, foundRow, foundCol);
 		else if(checkRightLowerDiagonal(TABLE, wordSearch, i, &foundRow, &foundCol))
-		//	printf("\n%s can be found RIGHT LOW diagonally on row-%d column-%d",wordSearch+i, foundRow, foundCol);	
-			printf("\n%s can't be found.",wordSearch+i);
+			printf("\n%s can be found RIGHT LOW diagonally on row-%d column-%d",wordSearch+i, foundRow, foundCol);	
 		else 
 			printf("\n%s can't be found.",wordSearch+i);
 		

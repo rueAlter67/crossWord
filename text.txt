@@ -1,0 +1,21 @@
+
+CALCULUS can't be found.
+TRIGONOMETRY can't be found.
+PROBABILITY can't be found.
+GRAPHTHEORY can't be found.
+GEOMETRY can be found HORIZONTALLY on row-19 column-9
+TOPOLOGY can be found LEFT LOW diagonally on row-1 column-2
+APPLIEDMATH can be found VERTICALLY on row-1 column-19
+ANALYTICGEOMETRY can be found RIGHT LOW diagonally on row-2 column-17
+COMBINATRONICS can't be found.
+STATISTICS can't be found.
+ARITHMETIC can't be found.
+CATEGORYTHEORY can be found HORIZONTALLY on row-16 column-5
+SETTHEORY can be found LEFT LOW diagonally on row-5 column-12
+DIFFERENTIALGEOMETRY can be found HORIZONTALLY on row-20 column-1
+ANALYSIS can't be found.
+ALGEBRA can't be found.
+GAMETHEORY can't be found.
+NUMBERTHEORY can't be found.
+DIFFERENTIALEQUATION can be found HORIZONTALLY on row-20 column-1
+MATHEMATICALLOGIC can't be found.
